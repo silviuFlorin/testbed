@@ -39,7 +39,9 @@ function buildDriver(browser, options) {
 
   var firefoxOptions = new firefox.Options()
       .setProfile(profile);
-  if (os.platform() === 'win32') {
+  if (options.path) {
+    firefoxOptions.setBinary(options.path);
+  } else if (os.platform() === 'win32') {
     // TODO: why does geckodriver not find this (fairly standard) path?
     firefoxOptions.setBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe');
   } else if (os.platform() == 'linux' && options.bver) {
@@ -55,7 +57,9 @@ function buildDriver(browser, options) {
       .addArguments('disable-translate')
       .addArguments('no-process-singleton-dialog')
       .addArguments('mute-audio');
-  if (os.platform() === 'linux' && options.bver) {
+  if (options.path) {
+    chromeOptions.setChromeBinaryPath(options.path);
+  } else if (os.platform() === 'linux' && options.bver) {
     chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
   }
   if (!options.devices) {
