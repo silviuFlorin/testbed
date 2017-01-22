@@ -185,8 +185,14 @@ WebRTCClient.prototype.getStats = function() {
 
     pc.getStats(null)
     .then(function(stats) {
-      callback(stats);
+      callback(stats.entries ?  [... stats.entries()] : stats);
     });
+  })
+  .then(function(stats) {
+    if (Array.isArray(stats)) {
+      return new Map(stats);
+    }
+    return entries;
   });
 };
 
