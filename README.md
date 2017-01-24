@@ -31,6 +31,7 @@ for two weeks after Firefox 49 rolled out. And Video interop between Chrome Cana
 Most of these issues have been noticed by people testing manually.
 
 ##Acknowledgements
+Support for this work was provided in part by the International Multimedia Telecommunications Consortium (IMTC) - http://www.imtc.org 
 Many thanks to Bernard Aboba for making me start this!
 
 ##Testing process
