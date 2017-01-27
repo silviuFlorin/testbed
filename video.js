@@ -197,6 +197,14 @@ test('Firefox-Firefox, VP9', function(t) {
   video(t, 'firefox', 'firefox', 'VP9');
 });
 
+test('Firefox-Chrome, VP9', function(t) {
+  video(t, 'firefox', 'chrome', 'VP9');
+});
+
+test('Chrome-Firefox, VP9', function(t) {
+  video(t, 'chrome', 'firefox', 'VP9');
+});
+
 // H264 interop requires Chrome 50+ and a Firefox
 // profile pre-seeded with the right binary,
 test('Chrome-Chrome, H264', function(t) {
