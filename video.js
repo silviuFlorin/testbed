@@ -239,6 +239,14 @@ test('Firefox-Edge', {skip: os.platform() !== 'win32'}, function (t) {
   video(t, 'firefox', 'MicrosoftEdge', 'H264');
 });
 
+// VP8 is available since Edge 15014
+test('Edge-Chrome VP8', {skip: os.platform() !== 'win32'}, function (t) {
+  video(t, 'MicrosoftEdge', 'chrome', 'VP8');
+});
+
+test('Edge-Firefox VP8', {skip: os.platform() !== 'win32'}, function (t) {
+  video(t, 'MicrosoftEdge', 'firefox', 'VP8');
+});
 /*
 test('Edge-Edge', {skip: os.platform() !== 'win32'}, function (t) {
   video(t, 'MicrosoftEdge', 'MicrosoftEdge', 'H264');
