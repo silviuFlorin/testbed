@@ -196,4 +196,33 @@ WebRTCClient.prototype.getStats = function() {
   });
 };
 
+WebRTCClient.prototype.waitForAudio(silence) {
+  return this.driver.executeAsyncScript(function(silence) {
+    var callback = arguments[arguments.length - 1];
+
+    var remoteStream = pc.getRemoteStreams()[0];
+
+    var ac = new AudioContext();
+    var analyser = ac.createAnalyser();
+    analyser.fftSize = 2048;
+    analyser.smoothingTimeConstant = 0;
+    var fftBins = new Uint8Array(analyser.frequencyBinCount);
+    var sourceNode = ac.createMediaStreamSource(new MediaStream([remoteStream.getAudioTracks()[0]]));
+    sourceNode.connect(analyser);
+    function poll() {
+      analyser.getByteFrequencyData(fftBins);
+      var sum = fftBins.reduce((a, b) => a + b);
+      if ((silence && sum === 0) || (!silence && sum > 0)) {
+        ac.close()
+        .then(() => {
+          callback();
+        });
+      } else {
+        requestAnimationFrame(poll);
+      }
+    }
+    setTimeout(poll, 500);
+  }, silence);
+};
+
 module.exports = WebRTCClient;
