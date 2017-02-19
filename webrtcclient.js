@@ -196,7 +196,7 @@ WebRTCClient.prototype.getStats = function() {
   });
 };
 
-WebRTCClient.prototype.waitForAudio(silence) {
+WebRTCClient.prototype.waitForAudio = function(silence) {
   return this.driver.executeAsyncScript(function(silence) {
     var callback = arguments[arguments.length - 1];
 
