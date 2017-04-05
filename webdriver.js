@@ -121,7 +121,10 @@ function buildDriver(browser, options) {
 
 // static page that includes adapter.js 
 function getTestpage(driver) {
-    return driver.get('https://fippo.github.io/adapter/testpage.html')
+    return driver.get('https://fippo.github.io/adapter/empty.html')
+    .then(() => {
+        driver.executeScript(fs.readFileSync('node_modules/webrtc-adapter/out/adapter.js').toString());
+    });
 }
 
 module.exports = {
