@@ -1,5 +1,5 @@
-#WebRTC interoperability tests
-##Why do we need interoperability tests?
+# WebRTC interoperability tests
+## Why do we need interoperability tests?
 The current state of interoperability testing for WebRTC is still mostly as described by two
 blog posts written by Google’s test engineer, Patrik Höglund in mid­2014
 [here](http://googletesting.blogspot.se/2014/08/chrome-firefox-webrtc-interop-test-pt-1.html) and 
@@ -30,25 +30,25 @@ for two weeks after Firefox 49 rolled out. And Video interop between Chrome Cana
 
 Most of these issues have been noticed by people testing manually.
 
-##Acknowledgements
+## Acknowledgements
 Support for this work was provided in part by the International Multimedia Telecommunications Consortium (IMTC) - http://www.imtc.org 
 Many thanks to Bernard Aboba for making me start this!
 
-##Testing process
+## Testing process
 The testing process is based on the process used in [adapter.js](https://github.com/webrtc/adapter)
 and the [samples](https://github.com/webrtc/samples). It uses selenium and
 [webdriverjs](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) and tests are written using
 [tape](https://github.com/substack/tape).
 
-###Chrome
+### Chrome
 H264 tests currently require Chrome 50 which adds H264 behind a flag.
 
-###Microsoft Edge
+### Microsoft Edge
 The tests for Microsoft Edge only run on Windows currently. The video tests require either the
 insider version of Edge (which has H264 enabled by default or the TH2 release of Windows where
 H264 is available behind a flag).
 
-###Firefox 
+### Firefox 
 Firefox uses a binary module from the OpenH264 project to provide H264 support. Typically, this
 module is downloaded by Firefox shortly after the creation of a new profile. Since Selenium
 creates a new profile for each test, the binary needs to be provided in a template profile.
@@ -56,14 +56,14 @@ See [this README](h264profile/gmp-gmpopenh264/1.6) for details.
 
 VP9 can be enabled with a flag in Firefox. However, this is compatbile with Chrome only in Firefox 45+.
 
-##AppRTC tests
+## AppRTC tests
 apprtc.js shows how to test the [AppRTC](https://appr.tc) example provided by Google.
 It uses a number of URL parameters to tweak application behaviour, e.g. to force the VP9 or H264
 video codec.
 Both ICE connectivity as well as video interoperability is tested. For the latter, the frame checker
 from [testRTC](https://github.com/webrtc/testrtc) is used.
 
-##Raw interop tests
+## Raw interop tests
 There is a second set of tests which use plain HTML pages and adapter.js. 
 Those tests emulate the PeerConnection API to some degree which makes them look very similar
 to some of the tests in adapter.js or the JSFiddles written by Mozilla's [Jan-Ivar](https://github.com/jan-ivar).
