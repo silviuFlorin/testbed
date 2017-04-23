@@ -57,6 +57,9 @@ function buildDriver(browser, options) {
       .addArguments('disable-translate')
       .addArguments('no-process-singleton-dialog')
       .addArguments('mute-audio');
+  if (options.experimental !== false) {
+    chromeOptions.addArguments('--enable-experimental-web-platform-features');
+  }
   if (options.chromepath) {
     chromeOptions.setChromeBinaryPath(options.chromepath);
   } else if (os.platform() === 'linux' && options.bver) {
