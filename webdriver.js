@@ -106,7 +106,7 @@ function buildDriver(browser, options) {
       .setChromeOptions(chromeOptions)
       .setEdgeOptions(edgeOptions)
       .forBrowser(browser);
-  if (options.server === 'true') {
+  if (options.server === true) {
     driver = driver.usingServer('http://localhost:4444/wd/hub/');
   } else if (options.server) {
     driver = driver.usingServer(options.server);
