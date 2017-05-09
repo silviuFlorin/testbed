@@ -58,13 +58,18 @@ function buildDriver(browser, options) {
       .addArguments('no-process-singleton-dialog')
       .addArguments('mute-audio');
   if (options.experimental !== false) {
-    chromeOptions.addArguments('--enable-experimental-web-platform-features');
+    chromeOptions.addArguments('enable-experimental-web-platform-features');
+  }
+  if (options.headless) {
+    chromeOptions.addArguments('headless');
+    chromeOptions.addArguments('disable-gpu');
   }
   if (options.chromepath) {
     chromeOptions.setChromeBinaryPath(options.chromepath);
   } else if (os.platform() === 'linux' && options.bver) {
     chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
   }
+
   if (!options.devices) {
     chromeOptions.addArguments('use-fake-ui-for-media-stream');
   } else {
