@@ -5,6 +5,7 @@ var webdriver = require('selenium-webdriver');
 var chrome = require('selenium-webdriver/chrome');
 var firefox = require('selenium-webdriver/firefox');
 var edge = require('selenium-webdriver/edge');
+var safari = require('selenium-webdriver/safari');
 
 // setup path for webdriver binaries
 if (os.platform() === 'win32') {
@@ -106,10 +107,14 @@ function buildDriver(browser, options) {
 
   var edgeOptions = new edge.Options();
 
+  var safariOptions = new safari.Options();
+  safariOptions.setTechnologyPreview(options.bver === 'TechPreview');
+
   var driver = new webdriver.Builder()
       .setFirefoxOptions(firefoxOptions)
       .setChromeOptions(chromeOptions)
       .setEdgeOptions(edgeOptions)
+      .setSafariOptions(safariOptions)
       .forBrowser(browser);
   if (options.server === true) {
     driver = driver.usingServer('http://localhost:4444/wd/hub/');
