@@ -58,7 +58,7 @@ function maybeWaitForEdge(browserA, browserB) {
 // Helper function for basic interop test.
 // see https://apprtc.appspot.com/params.html for queryString options (outdated...)
 function interop(t, browserA, browserB, queryString) {
-  var driverA = buildDriver(browserA, {h264: true});
+  var driverA = buildDriver(browserA, {h264: true, bver: 'TechPreview'});
   var driverB;
 
   var baseURL = 'https://appr.tc/';
@@ -83,7 +83,7 @@ function interop(t, browserA, browserB, queryString) {
   })
   .then(function(url) {
     //
-    driverB = buildDriver(browserB, {h264: true});
+    driverB = buildDriver(browserB, {h264: true, bver: 'TechPreview'});
     return driverB.get(url);
   })
   .then(function() {
@@ -128,6 +128,7 @@ function interop(t, browserA, browserB, queryString) {
   });
 }
 
+/*
 test('Chrome-Chrome', function(t) {
   interop(t, 'chrome', 'chrome')
 });
@@ -143,6 +144,7 @@ test('Firefox-Chrome', function(t) {
 test('Firefox-Firefox', function(t) {
   interop(t, 'firefox', 'firefox')
 });
+*/
 
 // unclear how to evaluate audio-only
 /*
@@ -150,7 +152,7 @@ test('Chrome-Chrome, audio-only', function(t) {
   interop(t, 'chrome', 'chrome', '?audio=true&video=false')
 });
 */
-
+/*
 test('Chrome-Chrome, icetransports=relay', function(t) {
   interop(t, 'chrome', 'chrome', '?it=relay')
 });
@@ -189,4 +191,9 @@ test('Chrome-Firefox, VP9', function(t) {
 
 test('Firefox-Chrome, VP9', function(t) {
   interop(t, 'firefox', 'chrome', '?vsc=VP9&vrc=VP9')
+});
+*/
+
+test('Chrome-Safari', function(t) {
+  interop(t, 'chrome', 'safari')
 });
