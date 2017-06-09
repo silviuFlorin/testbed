@@ -64,8 +64,8 @@ function maybeWaitForEdge(browserA, browserB) {
 }
 
 function interop(browserA, browserB, t) {
-    var driverA = buildDriver(browserA);
-    var driverB = buildDriver(browserB);
+  var driverA = buildDriver(browserA, {h264: true, bver: browserA === 'safari' ? 'TechnologyPreview' : 'beta'});
+  var driverB = buildDriver(browserB, {h264: true, bver: browserB === 'safari' ? 'TechnologyPreview' : 'beta'});
 
   var baseURL = 'https://appear.in/';
   var roomName = 'automated-testing-' + Math.random().toString(36).substr(2, 10);
@@ -147,4 +147,20 @@ test('Firefox-Chrome', function(t) {
 
 test('Edge-Chrome', {skip: os.platform() !== 'win32'}, function (t) {
     interop('Edge', 'chrome', t);
+});
+
+test('Safari-Chrome', {skip: os.platform() !== 'darwin'}, function(t) {
+    interop('safari', 'chrome', t);
+});
+
+test('Chrome-Safari', {skip: os.platform() !== 'darwin'}, function(t) {
+    interop('safari', 'chrome', t);
+});
+
+test('Firefox-Safari', {skip: os.platform() !== 'darwin'}, function(t) {
+    interop('firefox', 'safari', t);
+});
+
+test('Safari-Firefox', {skip: os.platform() !== 'darwin'}, function(t) {
+    interop('safari', 'chrome', t);
 });
