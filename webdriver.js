@@ -7,6 +7,8 @@ var firefox = require('selenium-webdriver/firefox');
 var edge = require('selenium-webdriver/edge');
 var safari = require('selenium-webdriver/safari');
 
+var grid = process.env.SELENIUM_SERVER;
+
 // setup path for webdriver binaries
 if (os.platform() === 'win32') {
   process.env.PATH += ';C:\\Program Files (x86)\\Microsoft Web Driver\\';
@@ -40,13 +42,15 @@ function buildDriver(browser, options) {
 
   var firefoxOptions = new firefox.Options()
       .setProfile(profile);
-  if (options.firefoxpath) {
-    firefoxOptions.setBinary(options.firefoxpath);
-  } else if (os.platform() === 'win32') {
-    // TODO: why does geckodriver not find this (fairly standard) path?
-    firefoxOptions.setBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe');
-  } else if (os.platform() == 'linux' && options.bver) {
-    firefoxOptions.setBinary('browsers/bin/firefox-' + options.bver);
+  if (!grid) {
+    if (options.firefoxpath) {
+      firefoxOptions.setBinary(options.firefoxpath);
+    } else if (os.platform() === 'win32') {
+      // TODO: why does geckodriver not find this (fairly standard) path?
+      firefoxOptions.setBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe');
+    } else if (os.platform() == 'linux' && options.bver) {
+      firefoxOptions.setBinary('browsers/bin/firefox-' + options.bver);
+    }
   }
 
   // Chrome options.
@@ -65,10 +69,13 @@ function buildDriver(browser, options) {
     chromeOptions.addArguments('headless');
     chromeOptions.addArguments('disable-gpu');
   }
-  if (options.chromepath) {
-    chromeOptions.setChromeBinaryPath(options.chromepath);
-  } else if (os.platform() === 'linux' && options.bver) {
-    chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
+
+  if (!grid) {
+    if (options.chromepath) {
+      chromeOptions.setChromeBinaryPath(options.chromepath);
+    } else if (os.platform() === 'linux' && options.bver) {
+      chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
+    }
   }
 
   if (!options.devices) {
