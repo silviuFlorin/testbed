@@ -129,6 +129,8 @@ function interop(browserA, browserB, t) {
   });
 }
 
+const SELENIUM_SERVER = process.env.SELENIUM_SERVER;
+
 test('Chrome-Chrome', function(t) {
     interop('chrome', 'chrome', t);
 });
@@ -145,22 +147,30 @@ test('Firefox-Chrome', function(t) {
     interop('firefox', 'chrome', t);
 });
 
-test('Edge-Chrome', {skip: os.platform() !== 'win32'}, function (t) {
+test('Edge-Chrome', {skip: !SELENIUM_SERVER && os.platform() !== 'win32'}, function (t) {
     interop('MicrosoftEdge', 'chrome', t);
 });
 
-test('Safari-Chrome', {skip: os.platform() !== 'darwin'}, function(t) {
+test('Safari-Chrome', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, function(t) {
     interop('safari', 'chrome', t);
 });
 
-test('Chrome-Safari', {skip: os.platform() !== 'darwin'}, function(t) {
+test('Chrome-Safari', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, function(t) {
     interop('safari', 'chrome', t);
 });
 
-test('Firefox-Safari', {skip: os.platform() !== 'darwin'}, function(t) {
+test('Firefox-Safari', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, function(t) {
     interop('firefox', 'safari', t);
 });
 
-test('Safari-Firefox', {skip: os.platform() !== 'darwin'}, function(t) {
+test('Safari-Firefox', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, function(t) {
     interop('safari', 'chrome', t);
+});
+
+test('Edge-Safari', {skip: !SELENIUM_SERVER}, function(t) {
+    interop('MicrosoftEdge', 'safari', t);
+});
+
+test('Safari-Edge', {skip: !SELENIUM_SERVER}, function(t) {
+    interop('safari', 'MicrosoftEdge', t);
 });

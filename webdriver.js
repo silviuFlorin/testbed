@@ -120,6 +120,8 @@ function buildDriver(browser, options) {
     driver = driver.usingServer('http://localhost:4444/wd/hub/');
   } else if (options.server) {
     driver = driver.usingServer(options.server);
+  } else if (process.env.SELENIUM_SERVER) {
+    driver = driver.usingServer(process.env.SELENIUM_SERVER);
   }
 
   if (browser === 'firefox') {
