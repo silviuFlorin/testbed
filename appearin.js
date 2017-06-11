@@ -146,7 +146,7 @@ test('Firefox-Chrome', function(t) {
 });
 
 test('Edge-Chrome', {skip: os.platform() !== 'win32'}, function (t) {
-    interop('Edge', 'chrome', t);
+    interop('MicrosoftEdge', 'chrome', t);
 });
 
 test('Safari-Chrome', {skip: os.platform() !== 'darwin'}, function(t) {
