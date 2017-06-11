@@ -42,10 +42,10 @@ function buildDriver(browser, options) {
 
   var firefoxOptions = new firefox.Options()
       .setProfile(profile);
-  if (!grid) {
-    if (options.firefoxpath) {
+  if (options.firefoxpath) {
       firefoxOptions.setBinary(options.firefoxpath);
-    } else if (os.platform() === 'win32') {
+  } else if (!grid) {
+    if (os.platform() === 'win32') {
       // TODO: why does geckodriver not find this (fairly standard) path?
       firefoxOptions.setBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe');
     } else if (os.platform() == 'linux' && options.bver) {
@@ -70,12 +70,10 @@ function buildDriver(browser, options) {
     chromeOptions.addArguments('disable-gpu');
   }
 
-  if (!grid) {
-    if (options.chromepath) {
-      chromeOptions.setChromeBinaryPath(options.chromepath);
-    } else if (os.platform() === 'linux' && options.bver) {
-      chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
-    }
+  if (options.chromepath) {
+    chromeOptions.setChromeBinaryPath(options.chromepath);
+  } else if (!grid && os.platform() === 'linux' && options.bver) {
+    chromeOptions.setChromeBinaryPath('browsers/bin/chrome-' + options.bver);
   }
 
   if (!options.devices) {
@@ -127,7 +125,7 @@ function buildDriver(browser, options) {
     driver = driver.usingServer('http://localhost:4444/wd/hub/');
   } else if (options.server) {
     driver = driver.usingServer(options.server);
-  } else if (process.env.SELENIUM_SERVER) {
+  } else if (options.server !== false && process.env.SELENIUM_SERVER) {
     driver = driver.usingServer(process.env.SELENIUM_SERVER);
   }
 
