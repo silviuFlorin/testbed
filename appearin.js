@@ -164,7 +164,7 @@ test('Firefox-Safari', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, f
 });
 
 test('Safari-Firefox', {skip: !SELENIUM_SERVER && os.platform() !== 'darwin'}, function(t) {
-    interop('safari', 'chrome', t);
+    interop('safari', 'firefox', t);
 });
 
 test('Edge-Safari', {skip: !SELENIUM_SERVER}, function(t) {
