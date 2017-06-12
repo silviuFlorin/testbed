@@ -31,6 +31,9 @@ function buildDriver(browser, options) {
     profile.setPreference('media.gmp-gmpopenh264.version', '1.6'); // openh264
   } else {
     profile = new firefox.Profile(options.firefoxprofile);
+    if (options.h264 !== false) {
+      profile.setPreference('media.gmp-gmpopenh264.version', '1.6'); // openh264
+    }
   }
 
   // note: interoperable with Chrome only in FF46+
