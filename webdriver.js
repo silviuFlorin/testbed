@@ -25,15 +25,15 @@ function buildDriver(browser, options) {
   // Firefox options.
   var profile;
   options = options || {};
-  if (options.h264) {
-    // contains gmp-gmpopenh264/1.6 which may contain openh264 binary.
-    profile = new firefox.Profile('h264profile');
-    profile.setPreference('media.gmp-gmpopenh264.version', '1.6'); // openh264
-  } else {
+  if (options.firefoxprofile) {
     profile = new firefox.Profile(options.firefoxprofile);
     if (options.h264 !== false) {
       profile.setPreference('media.gmp-gmpopenh264.version', '1.6'); // openh264
     }
+  } else if (options.h264) {
+    // contains gmp-gmpopenh264/1.6 which may contain openh264 binary.
+    profile = new firefox.Profile('h264profile');
+    profile.setPreference('media.gmp-gmpopenh264.version', '1.6'); // openh264
   }
 
   // note: interoperable with Chrome only in FF46+
