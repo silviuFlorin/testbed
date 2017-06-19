@@ -116,7 +116,7 @@ function buildDriver(browser, options) {
   var edgeOptions = new edge.Options();
 
   var safariOptions = new safari.Options();
-  safariOptions.setTechnologyPreview(options.bver === 'TechnologyPreview');
+  safariOptions.setTechnologyPreview(options.bver === 'unstable');
 
   var driver = new webdriver.Builder()
       .setFirefoxOptions(firefoxOptions)
